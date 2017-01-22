@@ -1,0 +1,39 @@
+server:
+  host: localhost
+  port: 8999
+  context-path: /hello
+
+helianto:
+  host: localhost
+  title: Hello
+  base-name: hello
+  base-logo: images/logo-mvps-64.png
+  api:
+    url: http://${helianto.host}:8081
+
+spring:
+  freemarker:
+    template-loader-path: classpath:/templates/, /templates/
+    prefer-file-system-access: false
+
+security:
+  oauth2:
+    client:
+      client-id: iservport-trusted-client
+      scope: read,write
+      authorized-grant-types: authorization_code
+      accessTokenUri: http://${helianto.host}:8081/oauth/token
+      userAuthorizationUri: http://${helianto.host}:8081/oauth/authorize
+    resource:
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApUzN1WkOas3R8908zqos
+          WPqfZW0JEXqApe9/jRBQM2sCmdoRSTTeF53OQeDfBpKNYjeVk2WDVd694Mil2yuZ
+          jhqvkRbV51OndCq41Zve45HHNK63mdwd7s0QpPrL0m/QAn3XkduLIW/NlVkR6oQX
+          k4EHNx+8AjBPbEVyIPpr71549isjECyI9Nh2rooR+g9pEk/U52YGtW1PjYBT9NRJ
+          MatpqJ7dv02Iu5sF32wopHGe/rCgFX2XdHrWRCjpX0gkeNtD0QK5JRMLerySlF0c
+          kcI3PnDDFLhGGxxylT9FaYEW50HYnHaBIKQfXcBpf8yHka3wkeR+t1Wrpu3vcIhT
+          mQIDAQAB
+          -----END PUBLIC KEY-----
+
